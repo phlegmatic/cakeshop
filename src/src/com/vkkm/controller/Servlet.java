@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import src.com.vkkm.bean.Book;
-import src.com.vkkm.bean.Login;
-import src.com.vkkm.bean.Person;
-import src.com.vkkm.model.Dao;
 
 /**
  * Servlet implementation class Servlet
@@ -39,15 +35,15 @@ public class Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-                   Dao d=new Dao();
+                   /*Dao d=new Dao();
                    
-                   String hiddenvar=request.getParameter("pavani");
+                   String hiddenvar=request.getParameter("login");
                    if(hiddenvar.equalsIgnoreCase("login")){
-                	   String username=request.getParameter("username");
+                	   String email=request.getParameter("email");
                 	   String password=request.getParameter("password");
-                	   String category=request.getParameter("category");
+                	   String category =request.getParameter("category");
                 	   Login l=new Login();
-                	   l.setUsername(username);
+                	   l.setEmail(email);
                 	   l.setPassword(password);
                 	   l.setCategory(category);
                 	   int retCount=d.insert(l);
@@ -105,7 +101,7 @@ public class Servlet extends HttpServlet {
                 	   r.forward(request, response);
                    }
                    }
- 
+*/ 
 	}
 
 }

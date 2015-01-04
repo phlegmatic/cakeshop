@@ -1,4 +1,4 @@
-package src.com.vkkm.model;
+package src.com.vkkm.controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,15 +7,14 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServlet;
 
-import src.com.vkkm.bean.Book;
-import src.com.vkkm.bean.Login;
-import src.com.vkkm.bean.Person;
+
+import src.com.vkkm.model.DBConnection;
 
 
 @SuppressWarnings("serial")
 public class Dao extends HttpServlet {
 	
-  public int insert(Login objLogin){
+  /*public int insert(Login objLogin){
 	  Connection conn=null;
 	  PreparedStatement pst=null;
 	  conn=DBConnection.getDBconnection();
@@ -159,4 +158,4 @@ public class Dao extends HttpServlet {
 	return plist;
 	  
   }
-}
+*/}
