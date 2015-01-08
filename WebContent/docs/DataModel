@@ -1,0 +1,221 @@
+productTypeInfo-id,name,description,created by,created on.
+2.product-id,name(cake,pestries,cookies),description,type,weight,price,createdBy,createdOn,imagepath,quantity,cost
+3.userTypeInfo-id,role regCustomer,guest,admin.
+4.user-id,fname,mname,lname,gender,contactNo,email,dob,addressId,userType,createdOn,createdBy,password.
+
+private int uid;
+	private String firstname;
+	private String lasttname;
+	private String email;
+	private String password;
+	private String contactNo;
+	private String dateOfBirth;
+
+5.shape type-id,shape name.
+6.product shape avaibility-prod_id, shape_id.
+7.order-order id,date,cust id,prod id, delivery date,payment mode(cheque,cash), payment status.
+8.payment mode-id, mode type.
+9.payment status -id, status type.
+10. address
+private int aid;
+	private String address;
+	private String city;
+	private int pincode;
+	
+
+After that, I summarized the application requirements as the following:
+In the application, first of all, different users (owner, customers and suppliers ) can login to the corresponding pages. In the pages, the users can search change and add the information of products, customers and suppliers, product purchase ranking, customer purchase ranking, purchase report including the income and expenses, profits and so on, product comparison. The detail authorization to the application is listed as the following:
+l search the information of products (owner, suppliers, customers)
+l change the information of products (owner, suppliers)
+l add the information of products (owner, suppliers)
+l search change and add the information of customers and suppliers(the users themselves and the owner)
+l product purchase ranking(owner, suppliers, customers)
+l customer purchase ranking(owner, suppliers, customers)
+l purchase report including the income and expenses, profits and so on(owner)
+l product comparison(owner, suppliers, customers)
+==================software design====================
+
+First of all, for the questions in the last sub-project, I explain why there is no order table in my database. The purchase record table has the function of order table. If the arrive_date in the purchase record is 0000-00-00, then we can judge it as an order.
+In addition, the View table stores the picture of the products, demonstrating the products to customers.
+1. Create the database
+CREATE DATABASE `e1100587_project` ;
+2.Create the database of customer information
+CREATE TABLE `e1100587_project`.`customer_info` (
+`customer_ID` INT( 10 ) NOT NULL ,
+`name` VARCHAR( 20 ) NOT NULL ,
+`gender` VARCHAR( 10 ) NOT NULL ,
+`age` INT( 5 ) NOT NULL ,
+`email` VARCHAR( 20 ) NOT NULL ,
+`address_ID` INT( 5 ) NOT NULL ,
+`password` VARCHAR( 10 ) NOT NULL ,
+`last_update` TIMESTAMP NOT NULL
+)
+Customer information
+l name - varchar(20)
+l customer_ID - int(10), primary key
+l gender - varchar(10)
+l age - int(5)
+l email - varchar(20)
+l address_ID - int(5), foreign key
+l password - varchar(10)
+l last_update - timestamp
+Customer relationships:
+One student can be linked to one address. One to One relationship.
+3. Create the database of address information
+CREATE TABLE `e1100587_project`.`address` (
+`address_ID` INT( 5 ) NOT NULL ,
+`address` VARCHAR( 50 ) NOT NULL ,
+`district` VARCHAR( 50 ) NOT NULL ,
+`city_ID` INT( 5 ) NOT NULL ,
+`postal_code` VARCHAR( 10 ) NOT NULL ,
+`phone` VARCHAR( 20 ) NOT NULL ,
+`last_update` TIMESTAMP NOT NULL
+);
+Address information
+l address_ID - int(5), primary key
+l address – varchar(50)
+l district – varchar(50)
+l city_ID – int(5), foreign key
+l postal_code – int(5)
+l phone – varchar(20)
+l last_update – timestamp
+Address relationships
+Many addresses can be linked to one city. Many to One relationship.
+4. Create the database of city information
+CREATE TABLE `e1100587_project`.`city` (
+`city_ID` INT( 5 ) NOT NULL ,
+`city` VARCHAR( 20 ) NOT NULL ,
+`country_ID` INT( 5 ) NOT NULL ,
+`last_update` TIMESTAMP NOT NULL
+)
+City information
+l city_ID - int(5), primary key
+l city – varchar(20)
+l country_ID – int(5), foreign key
+l last_update – timestamp
+City information
+Many cities can be linked to one country. Many to One relationship.
+5. Create the database of country information
+CREATE TABLE `e1100587_project`.`country` (
+`country_ID` INT( 5 ) NOT NULL ,
+`country` VARCHAR( 20 ) NOT NULL ,
+`last_update` TIMESTAMP NOT NULL
+)
+Country information
+l country_ID – int(5), primary key
+l country – varchar(20)
+l last_update – timestamp
+6.Create the database of product information
+CREATE TABLE 'e1100587_project`.`product_info` (
+`product_ID` INT NOT NULL ,
+`supplier_ID` INT(5) NOT NULL ,
+`type_ID` INT(20) NOT NULL ,
+`view_ID` INT(5) NOT NULL ,
+`name` VARCHAR(20) NULL ,
+`date_of_manufacture` DATETIME NULL ,
+`warranty_time` INT(5) NULL ,
+`amount` INT(5) NULL ,
+`price` DOUBLE NULL ,
+`cost` DOUBLE NULL ,
+`description` TEXT NULL ,
+`last_update` TIMESTAMP NULL
+)
+Product information
+l name - varchar(20)
+l type_ID – int(20)
+lsupplier_ID – int(5), foreign key
+l product_ID – int(5), primary key
+l date_of_manufacture - datetime
+l warranty_ime – int(5)
+l amount – int(10)
+l price - double
+l cost - double
+l view_ID – int(5), foreign key
+l description - text
+l last_update – timestamp
+Product relationship
+Many products can be linked to one supplier. Many to One relationship.
+One product can be linked to many views. One to Many relationship.
+Many products can be linked to one product type. Many to One relationship.
+7. Create the database of purchase record information
+CREATE TABLE `e1100587_project.`purchase_record` (
+`purchase_ID` INT(10) NOT NULL ,
+`product_ID` INT(5) NOT NULL ,
+`customer_ID` INT(5) NOT NULL ,
+`amount` INT(5) NULL ,
+`order_date` DATE NULL ,
+`arrive_date` DATE NULL ,
+`shipment_expense` DOUBLE NULL
+)
+Purchase record information
+l purchase_ID – int(10), primary key
+l customer_ID – int(5), foreign key
+l product_ID – int(5), foreign key
+l amount – int(5)
+l order_data - date
+l arrive_date -date
+l expense - double
+Purchase record relationship
+One purchase record can be linked to one customer. One to One relationship.
+One purchase record can be linked to one product. One to One relationship.
+8. Create the database of supplier information
+CREATE TABLE `e1100587_project`.`supplier_info` (
+`supplier_ID` INT(5) NOT NULL ,
+`address_ID` INT(5) NOT NULL ,
+`name` VARCHAR(10) NULL ,
+`email` VARCHAR(10) NULL ,
+`password` VARCHAR(10) NULL ,
+`last_update` TIMESTAMP NULL
+)
+Supplier information
+l name – varchar(10)
+l supplier_ID – int(5), primary key
+l email – varchar(10)
+l address_ID – int(5), foreign key
+l password – varchar(10)
+l last_update - timestamp
+Supplier relationship
+One supplier can be linked to one address. One to One relationship
+9. Create the database of supply record
+CREATE TABLE `e1100587_project`.`supply_record` (
+`supply_ID` INT(10) NOT NULL ,
+`product_ID` INT(5) NOT NULL ,
+`supplier_ID` INT(5) NOT NULL ,
+`amount` INT(5) NULL ,
+`order_date` DATE NULL ,
+`arrive_date` DATE NULL ,
+`shipment_expense` DOUBLE NULL
+)
+Supply record
+l supply_ID – int(10), primary key
+l supplier_ID – int(5), foreign key
+l product_ID – int(5), foreign key
+l amount – int(5)
+l order_date - date
+l arrive_date - date
+l shipment_expense - double
+Supply record relationship
+One supply record can be linked to one supplier. One to One relationship.
+One supply record can be linked to one product. One to One relationship.
+10. Create the database of view information
+CREATE TABLE `e1100587_project`.`view` (
+`view_ID` INT(5) NOT NULL ,
+`name` VARCHAR(10) NULL ,
+`description` TEXT NULL ,
+`view` MEDIUMBLOB NULL ,
+`last_update` TIMESTAMP NULL
+)
+View information
+l view_ID – int(5), primary key
+l name – varchar(10)
+l description – text
+l view – mediumblob
+l last_update - timestamp
+11. Create the database of product type
+CREATE TABLE `e1100587_project`.`product_type` (
+`product_type_ID` INT(10) NOT NULL ,
+`name` VARCHAR(20) NULL
+)
+Product type
+l product_type_ID – int(10), primary key
+l name – varchar(20)
