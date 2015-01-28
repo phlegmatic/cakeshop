@@ -46,7 +46,7 @@
     <div class="checkout grid_16">
       <div class="newAccount grid_8 alpha">
         <h4>Create New Account</h4>
-        <form method="post" action="#">
+        <form method="post" action="Servlet">
           <fieldset>
             <label for="firstName">First Name: </label>
             <input type="text" tabindex="1" size="22" value="" id="firstName" name="firstName" class="text" />
@@ -62,18 +62,20 @@
             <br />
             <label for="repassword">Retype Password:</label>
             <input type="password" tabindex="5" size="22" value="" id="repassword" name="repassword" class="text" />
+             <input type="hidden" name="hiddenVar" value="createUserlogic" />
             <br />
             <div class="clear"></div>
           </fieldset>
           <p>
             <input type="submit" value="Create New Account" tabindex="6" name="update" class="newAccountButton" />
+           
           </p>
-          <input type="hidden" value="30" />
+          
         </form>
       </div>
       <div class="loginPage grid_8 omega">
         <h4>Login</h4>
-        <form method="post" action="Servlet"/>
+        <form method="post" action="Servlet">
           <fieldset>
             <label for="email2">Email:</label>
             <input type="text" tabindex="1" size="50" value="" id="email2" name="email" class="text" />
@@ -85,9 +87,9 @@
           </fieldset>
           <p>
             <input type="submit" value="Login" tabindex="3" name="update" class="userLogin" />
+            <input type="hidden" name="hiddenVar" value="loginlogic" />
           </p>
-          <input type="hidden" name="login" value="30" />
-        </form>
+         </form>
       </div>
     </div>
   </div>

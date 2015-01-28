@@ -4,17 +4,72 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 import javax.servlet.http.HttpServlet;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
+
+import src.com.vkkm.bean.User;
 import src.com.vkkm.model.DBConnection;
+import src.com.vkkm.model.HibernateFactory;
 
 
-@SuppressWarnings("serial")
-public class Dao extends HttpServlet {
+
+public class Dao{
 	
-  /*public int insert(Login objLogin){
+	static Session session =null;
+	static Logger log = Logger.getLogger(Dao.class.getName());
+	
+	public boolean isValidUser(User userLogin) {
+		
+		log.info("in dao"+userLogin.getEmail());
+		
+		SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		
+		//session.beginTransaction();
+        String SQL_QUERY = " from User u where u.email='" + userLogin.getEmail() + "' and u.password='" + userLogin.getPassword() + "'";
+        System.out.println(SQL_QUERY);
+        Query query = session.createQuery(SQL_QUERY);
+        Iterator<User> it = query.iterate(); 
+        List<User> list = query.list();
+        if (list.size() > 0) {
+            session.close();
+            return true;
+        }
+        session.close();
+        return false;
+		
+		//session.save(userLogin);
+	}
+	
+	public void CreateUser(User userLogin) {
+		
+		System.out.println("in create user dao"+userLogin.getEmail());
+		SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		session.beginTransaction();
+		
+		
+		session.save(userLogin);
+		
+		session.getTransaction().commit();
+        session.close();
+		
+	}
+
+}   
+
+
+
+/*public int insert(Login objLogin){
 	  Connection conn=null;
 	  PreparedStatement pst=null;
 	  conn=DBConnection.getDBconnection();
@@ -158,4 +213,5 @@ public class Dao extends HttpServlet {
 	return plist;
 	  
   }
-*/}
+}
+*/

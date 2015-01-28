@@ -5,44 +5,94 @@ import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import src.com.vkkm.bean.Order;
+import src.com.vkkm.bean.User;
+import src.com.vkkm.model.HibernateFactory;
 
 
 /**
  * Servlet implementation class Servlet
  */
+
+@WebServlet("/Servlet")
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	static Logger log = Logger.getLogger(Servlet.class.getName());
     /**
      * Default constructor. 
      */
-    public Servlet() {
+    /*public Servlet() {
         // TODO Auto-generated constructor stub
     }
-
+*/
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	}
+	}*/
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+							throws ServletException, IOException{
+		Dao d= new Dao();
+		
+		String hiddenvar=request.getParameter("hiddenVar");
+		
+		log.info("in servlet with hidden variable"+hiddenvar);
+		
+		if(hiddenvar.equalsIgnoreCase("loginlogic")){
+			String email=request.getParameter("email");
+			String password=request.getParameter("password");
+			System.out.println(email+" AND  "+password);
 
-                   /*Dao d=new Dao();
-                   
-                   String hiddenvar=request.getParameter("login");
-                   if(hiddenvar.equalsIgnoreCase("login")){
-                	   String email=request.getParameter("email");
-                	   String password=request.getParameter("password");
-                	   String category =request.getParameter("category");
-                	   Login l=new Login();
+			User u= new User();
+			u.setEmail(email);
+			u.setPassword(password);
+			//Order o= new Order();
+			if(d.isValidUser(u)){
+				System.out.println("valid user");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+				rd.include(request, response);
+				//redirection
+			}	
+			else{
+				System.out.println("invalid user"); //invalid message
+		
+			}
+		}
+		else if (hiddenvar.equalsIgnoreCase("createUserlogic")){
+			 System.out.println("in servlet");
+			String firstname = request.getParameter("firstName");
+			String lastname = request.getParameter("lastName");
+			String email = request.getParameter("email"); //unique validation exception message
+			String password = request.getParameter("password");
+			
+			User u=new User();
+			u.setFirstname(firstname);
+			u.setLastname(lastname);
+			u.setEmail(email);
+			u.setPassword(password);
+			
+			d.CreateUser(u);
+			//redirection nd exception handling here
+		}
+
+	}
+}
+                	   /* Login l=new Login();
                 	   l.setEmail(email);
                 	   l.setPassword(password);
                 	   l.setCategory(category);
@@ -100,8 +150,8 @@ public class Servlet extends HttpServlet {
                 	   RequestDispatcher r=request.getRequestDispatcher("/viewallperson.jsp");
                 	   r.forward(request, response);
                    }
-                   }
-*/ 
+          }
+ 
 	}
 
-}
+}}*/

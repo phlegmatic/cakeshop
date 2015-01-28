@@ -27,7 +27,7 @@
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
 
 		<property name="hibernate.search.default.directory_provider">filesystem</property>
 		<property name="hibernate.search.default.indexBase">target/indexes</property>
@@ -36,7 +36,7 @@
 		<!-- Names the annotated entity class -->
         <!-- <mapping class="com.sanket.Movie"/>
         <mapping class="com.sanket.Director"/>
-         --><mapping class="src.com.vkkm.bean.Addres"/>
+         --><mapping class="src.com.vkkm.bean.Address"/>
          	<mapping class="src.com.vkkm.bean.Order"/>
          	<mapping class="src.com.vkkm.bean.ProductInfo"/>
          	<mapping class="src.com.vkkm.bean.User"/>

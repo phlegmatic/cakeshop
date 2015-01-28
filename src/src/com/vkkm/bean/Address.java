@@ -1,6 +1,15 @@
 package src.com.vkkm.bean;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Address")
 public class Address {
+	@Id
+	@GeneratedValue
 	private int addressId;
 	private String address; 
 	private String city;
@@ -30,8 +39,4 @@ public class Address {
 	public int getAddressId() {
 		return addressId;
 	}
-	
-	
-	
-
 }

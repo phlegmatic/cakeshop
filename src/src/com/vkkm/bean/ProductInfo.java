@@ -1,6 +1,19 @@
 package src.com.vkkm.bean;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ProductInfo")
 public class ProductInfo {
+	@Id
+	@GeneratedValue
     private String productId;
 	private String productCategory; //cake,wedding cake, kgwise, pastry
     private String name; //black forest etc
@@ -9,6 +22,10 @@ public class ProductInfo {
 	private String ManufacturingCost ; //cost to company
 	private int duration; //in days 
     private int availableQuantity; //
+    
+    @ManyToMany(mappedBy="orderDetails")
+    private Set<Order> order = new HashSet<Order>();
+    
 	public String getProductId() {
 		return productId;
 	}
@@ -56,6 +73,12 @@ public class ProductInfo {
 	}
 	public int getAvailableQuantity() {
 		return availableQuantity;
+	}
+	public void setOrder(Set<Order> order) {
+		this.order = order;
+	}
+	public Set<Order> getOrder() {
+		return order;
 	}
     
     
