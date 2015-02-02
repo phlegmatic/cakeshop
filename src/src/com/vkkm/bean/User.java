@@ -8,18 +8,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name="user")
 public class User{
-	@Id
-	@GeneratedValue
 	private int userId;
 	private String firstname;
 	private String lastname;
-	
-	@Column(name = "email",unique=true)
 	private String email;  //unique email will be user name
 	private String password;
 	//private String contactNo;  
 	//private String dateOfBirth; //can be used to give offers
-	@Column(name="userType")
 	private String userType = "user";  //admin,non admin
 
 	public String getFirstname() {
@@ -28,7 +23,7 @@ public class User{
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
-	
+	@Column(name = "email",unique=true)
 	public String getEmail() {
 		return email;
 	}
@@ -62,12 +57,15 @@ public class User{
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+	@Id
+	@GeneratedValue
 	public int getUserId() {
 		return userId;
 	}
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
+	@Column(name="userType")
 	public String getUserType() {
 		return userType;
 	}

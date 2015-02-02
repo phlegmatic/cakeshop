@@ -2,6 +2,7 @@ package src.com.vkkm.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -64,17 +66,38 @@ public class Servlet extends HttpServlet {
 			//Order o= new Order();
 			if(d.isValidUser(u)){
 				System.out.println("valid user");
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
-				rd.include(request, response);
+				//fetch details  of user
+				List<User> userDetail=d.getUserDetails(u);
+				// Create a new HTTPSession and save the username and roles
+	            // First, invalidate the session. if any
+				HttpSession session = request.getSession(false);
+				if (session != null) {
+					session.invalidate();
+				}
+				session = request.getSession(true);
+				synchronized (session) {
+					session.setAttribute("userInSessionList", userDetail); //setting userdetails in session
+				}
+				//redirection based upon roles
+				if(userDetail.get(0).getUserType().equalsIgnoreCase("user")){
+					System.out.println("userrole");
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+					rd.include(request, response);
+				}
+				else{
+					System.out.println("adminrole");
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/checkout-2-notneeded.html");
+					rd.include(request, response);
+				}
+					
 				//redirection
 			}	
 			else{
 				System.out.println("invalid user"); //invalid message
-		
 			}
 		}
 		else if (hiddenvar.equalsIgnoreCase("createUserlogic")){
-			 System.out.println("in servlet");
+			 System.out.println("in create user servlet");
 			String firstname = request.getParameter("firstName");
 			String lastname = request.getParameter("lastName");
 			String email = request.getParameter("email"); //unique validation exception message
@@ -87,71 +110,33 @@ public class Servlet extends HttpServlet {
 			u.setPassword(password);
 			
 			d.CreateUser(u);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+			rd.include(request, response);
 			//redirection nd exception handling here
 		}
-
+	
+		else if (hiddenvar.equalsIgnoreCase("createProductlogic")){
+			System.out.println("in create product");
+		}
 	}
-}
-                	   /* Login l=new Login();
-                	   l.setEmail(email);
-                	   l.setPassword(password);
-                	   l.setCategory(category);
-                	   int retCount=d.insert(l);
-                	   
-                	   if(retCount>0){
-                		request.setAttribute("key", l);
-                		RequestDispatcher r= request.getRequestDispatcher("/loginview.jsp");
-                		r.forward(request, response);
-                	   } else {
-                		   RequestDispatcher r= request.getRequestDispatcher("/login.jsp");
-                		   r.forward(request, response);
-                	   }
-                   }
-                   if(hiddenvar.equalsIgnoreCase("bookinsert")){
-                	   int bid=Integer.parseInt(request.getParameter("bid"));
-                	   String bname=request.getParameter("bname");
-                	   String author=request.getParameter("author");
-                	   int pages=Integer.parseInt(request.getParameter("pages"));
-                	   Book b=new Book();
-                	   b.setBid(bid);
-                	b.setBname(bname);
-                	b.setAuthor(author);
-                	b.setPages(pages);
-                	Book b1=d.binsert(b);
-                	System.out.println(b1);
-                	   
-
-                	   
-                   }
-                   if(hiddenvar.equalsIgnoreCase("bookview")){
-                	   ArrayList<Book> blist=new ArrayList<Book>();
-                	   blist=d.viewall();
-                	   request.setAttribute("viewall", blist);
-                	   RequestDispatcher r=request.getRequestDispatcher("/viewallbook.jsp");
-                	r.forward(request, response);
-                   }
-                   if(hiddenvar.equalsIgnoreCase("personinsert")){
-                	   int pid=Integer.parseInt(request.getParameter("pid"));
-                	   String pname=request.getParameter("pname");
-                	   int bid=Integer.parseInt(request.getParameter("bid"));
-                	   Person p=new Person();
-                	   p.setPid(pid);
-                	   p.setPname(pname);
-                	   p.setBid(bid);
-                	   Person p1=d.insert(p);
-                	   System.out.println(p1);
-                   }
-                   if(hiddenvar.equalsIgnoreCase("personview")){
-                	   Person p=new Person();
-                	   if(request.getParameter("bid")!=null){
-                	   ArrayList<Person> plist=new ArrayList<Person>();
-                	   plist=d.viewall1();
-                	   request.setAttribute("view",plist);
-                	   RequestDispatcher r=request.getRequestDispatcher("/viewallperson.jsp");
-                	   r.forward(request, response);
-                   }
-          }
+	/* logout
+	 * response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
  
-	}
-
-}}*/
+      try {
+         out.println("<html><head><title>Logout</title></head><body>");
+         out.println("<h2>Logout</h2>");
+         HttpSession session = request.getSession(false);
+         if (session == null) {
+            out.println("<h3>You have not login!</h3>");
+         } else {
+            session.invalidate();
+            out.println("<p>Bye!</p>");
+            out.println("<p><a href='index.html'>Login</a></p>");
+         }
+         out.println("</body></html>");
+      } finally {
+         out.close();
+      }
+	 */
+}

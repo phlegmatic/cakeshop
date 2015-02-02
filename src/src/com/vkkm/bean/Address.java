@@ -8,13 +8,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Address")
 public class Address {
-	@Id
-	@GeneratedValue
+	
 	private int addressId;
 	private String address; 
 	private String city;
 	private int pincode; //6 digit int
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -36,6 +35,9 @@ public class Address {
 	public void setAddressId(int addressId) {
 		this.addressId = addressId;
 	}
+	
+	@Id
+	@GeneratedValue
 	public int getAddressId() {
 		return addressId;
 	}

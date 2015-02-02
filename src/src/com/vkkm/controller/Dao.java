@@ -11,11 +11,14 @@ import java.util.List;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 
+import src.com.vkkm.bean.ProductInfo;
 import src.com.vkkm.bean.User;
 import src.com.vkkm.model.DBConnection;
 import src.com.vkkm.model.HibernateFactory;
@@ -27,9 +30,10 @@ public class Dao{
 	static Session session =null;
 	static Logger log = Logger.getLogger(Dao.class.getName());
 	
+	//authenticates user
 	public boolean isValidUser(User userLogin) {
 		
-		log.info("in dao"+userLogin.getEmail());
+		log.info("in validuser dao"+userLogin.getEmail());
 		
 		SessionFactory factory=HibernateFactory.getSessionFactory();
 		session =factory.openSession();
@@ -50,6 +54,25 @@ public class Dao{
 		//session.save(userLogin);
 	}
 	
+	//fetches userdetails
+	public List<User> getUserDetails(User userLogin) {
+		
+		log.info("in get userdetails dao"+userLogin.getEmail());
+		
+		SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		
+		//session.beginTransaction();
+		Criteria c=session.createCriteria(User.class);
+		c.add(Restrictions.eq("email", userLogin.getEmail()));
+		List<User> list=c.list();
+        
+        session.close();
+		return list;
+		
+		
+	}
+	
 	public void CreateUser(User userLogin) {
 		
 		System.out.println("in create user dao"+userLogin.getEmail());
@@ -59,6 +82,21 @@ public class Dao{
 		
 		
 		session.save(userLogin);
+		
+		session.getTransaction().commit();
+        session.close();
+		
+	}
+	
+    public void CreateProduct(ProductInfo p) {
+		
+		System.out.println("in create product dao"+p.getProductName());
+		SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		session.beginTransaction();
+		
+		
+		session.save(p);
 		
 		session.getTransaction().commit();
         session.close();
