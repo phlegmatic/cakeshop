@@ -26,8 +26,8 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
 
-        <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <!--create= Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
 
 		<property name="hibernate.search.default.directory_provider">filesystem</property>
 		<property name="hibernate.search.default.indexBase">target/indexes</property>

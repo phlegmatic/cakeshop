@@ -102,7 +102,18 @@ public class Dao{
         session.close();
 		
 	}
-
+    
+    @SuppressWarnings("unchecked")
+    public List<ProductInfo> loadProducts() {
+		
+		System.out.println("in select all product dao");
+		SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		session.beginTransaction();
+		List<ProductInfo> prodList = session.createCriteria(ProductInfo.class).list();
+		session.close();
+		return prodList;
+	}
 }   
 
 

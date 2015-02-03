@@ -28,10 +28,10 @@ public class ProductInfo {
 	private String productCategory; //cake,wedding cake, kgwise, pastry
 	private String productName; //black forest etc
 	private String description; //detail info
-	private String SellingPrice ;//cost to customer
-	private String ManufacturingCost ; //cost to company
-	private int duration;//in days
-	private Date createdDate; 
+	private int SellingPrice ;//cost to customer
+	private int ManufacturingCost ; //cost to company
+	//private int duration;//in days
+	//private Date createdDate; 
 	private int availableQuantity; //
 	private String filepath; //imagepath
 	private Set<OrderProductDetails> orderProducts = new HashSet<OrderProductDetails>(0);
@@ -58,24 +58,24 @@ public class ProductInfo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getSellingPrice() {
+	public int getSellingPrice() {
 		return SellingPrice;
 	}
-	public void setSellingPrice(String sellingPrice) {
+	public void setSellingPrice(int sellingPrice) {
 		SellingPrice = sellingPrice;
 	}
-	public String getManufacturingCost() {
+	public int getManufacturingCost() {
 		return ManufacturingCost;
 	}
-	public void setManufacturingCost(String manufacturingCost) {
+	public void setManufacturingCost(int manufacturingCost) {
 		ManufacturingCost = manufacturingCost;
 	}
-	public int getDuration() {
+	/*public int getDuration() {
 		return duration;
 	}
 	public void setDuration(int duration) {
 		this.duration = duration;
-	}
+	}*/
 	public void setAvailableQuantity(int availableQuantity) {
 		this.availableQuantity = availableQuantity;
 	}
@@ -101,15 +101,17 @@ public class ProductInfo {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+	
+	@Column(name = "productName",unique=true)
 	public String getProductName() {
 		return productName;
 	}
-	@Temporal(TemporalType.DATE)
+	/*@Temporal(TemporalType.DATE)
 	@Column(name = "createdOn", nullable = false, length = 10)
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 	public Date getCreatedDate() {
 		return createdDate;
-	}             
+	}*/             
 }
