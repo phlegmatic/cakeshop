@@ -81,7 +81,7 @@ public class Servlet extends HttpServlet {
 				//redirection based upon roles
 				if(userDetail.get(0).getUserType().equalsIgnoreCase("user")){
 					System.out.println("userrole");
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 					rd.include(request, response);
 				}
 				else{
@@ -93,7 +93,10 @@ public class Servlet extends HttpServlet {
 				//redirection
 			}	
 			else{
-				System.out.println("invalid user"); //invalid message
+				System.out.println("invalid user! Login again");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+				rd.include(request, response);
+				//invalid message
 			}
 		}
 		else if (hiddenvar.equalsIgnoreCase("createUserlogic")){

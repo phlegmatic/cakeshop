@@ -26,7 +26,7 @@ public class OrderProductDetails {
 	
 		private OrderProductDetailsPk pk =new OrderProductDetailsPk();
 		private int quantity;
-	    private Date createdOn;
+	   // private Date createdOn;
 
 		public void setQuantity(int quantity) {
 			this.quantity = quantity;
@@ -51,7 +51,7 @@ public class OrderProductDetails {
 			return quantity;
 		}
 		
-		public void setCreatedDate(Date createdDate) {
+		/*public void setCreatedDate(Date createdDate) {
 			this.createdOn = createdDate;
 		}
 
@@ -62,7 +62,7 @@ public class OrderProductDetails {
 		public Date getCreatedDate() {
 			return createdOn;
 		}
-
+*/
 		public void setPk(OrderProductDetailsPk pk) {
 			this.pk = pk;
 		}

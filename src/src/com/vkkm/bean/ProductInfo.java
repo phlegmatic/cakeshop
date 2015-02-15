@@ -28,7 +28,7 @@ public class ProductInfo {
 	private String productCategory; //cake,wedding cake, kgwise, pastry
 	private String productName; //black forest etc
 	private String description; //detail info
-	private int SellingPrice ;//cost to customer
+	private int sellingPrice ;//cost to customer
 	private int ManufacturingCost ; //cost to company
 	//private int duration;//in days
 	//private Date createdDate; 
@@ -58,12 +58,7 @@ public class ProductInfo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getSellingPrice() {
-		return SellingPrice;
-	}
-	public void setSellingPrice(int sellingPrice) {
-		SellingPrice = sellingPrice;
-	}
+	
 	public int getManufacturingCost() {
 		return ManufacturingCost;
 	}
@@ -113,5 +108,11 @@ public class ProductInfo {
 	}
 	public Date getCreatedDate() {
 		return createdDate;
-	}*/             
+	}*/
+	public void setSellingPrice(int sellingPrice) {
+		this.sellingPrice = sellingPrice;
+	}
+	public int getSellingPrice() {
+		return sellingPrice;
+	}             
 }

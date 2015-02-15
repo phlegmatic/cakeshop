@@ -18,6 +18,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 
 
+import src.com.vkkm.bean.Address;
+import src.com.vkkm.bean.Order;
+import src.com.vkkm.bean.OrderProductDetails;
 import src.com.vkkm.bean.ProductInfo;
 import src.com.vkkm.bean.User;
 import src.com.vkkm.model.DBConnection;
@@ -33,7 +36,7 @@ public class Dao{
 	//authenticates user
 	public boolean isValidUser(User userLogin) {
 		
-		log.info("in validuser dao"+userLogin.getEmail());
+		log.debug("in validuser dao"+userLogin.getEmail());
 		
 		SessionFactory factory=HibernateFactory.getSessionFactory();
 		session =factory.openSession();
@@ -114,6 +117,54 @@ public class Dao{
 		session.close();
 		return prodList;
 	}
+    
+    public ProductInfo loadProducts(int prodId) {
+		
+		System.out.println("in select one product dao");
+		SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		session.beginTransaction();
+		ProductInfo product;
+		product =  (ProductInfo) session.get(ProductInfo.class, prodId);
+		session.close();
+		return product;
+	}
+    
+    public void saveAddress(Address ad) {
+		
+    	SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		session.beginTransaction();
+		
+		
+		session.save(ad);
+		
+		session.getTransaction().commit();
+        session.close();
+		
+	}
+
+	public Order saveOrder(Order order) {
+		SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		session.beginTransaction();
+		
+		
+		session.save(order);
+		
+		session.getTransaction().commit();
+		
+		Order receipt;
+		receipt =  (Order) session.get(Order.class, order.getOrderId());
+		
+        session.close();
+		return receipt;
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+    
 }   
 
 

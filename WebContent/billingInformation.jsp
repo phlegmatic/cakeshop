@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,6 +11,8 @@
 <link rel="stylesheet" type="text/css" media="all" href="styles/text.css" />
 <link rel="stylesheet" type="text/css" media="all" href="style.css" />
 <link rel="stylesheet" type="text/css" media="all" href="themes/brown/style.css" />
+<link rel="stylesheet" type="text/css" href="styles/datepicker.css" /> 
+<script type="text/javascript" src="scripts/datepicker.js"></script>
 </head>
 <body>
 <div id="warp">
@@ -18,9 +23,9 @@
         <h2>Famously Delicious</h2>
       </div>
       <div id="headright" class="grid_7 prefix_5 omega">
-        <h3 class="login"><span class="hiUser">Hi, Monika Halim |</span> <span class="myAccount"><a href="#">My Account</a></span> <a href="#">Logout</a></h3>
-        <p>Subtotal: $ 00.00</p>
-        <p><span class="vChart"><a href="shoppingcart.html">View Cart</a></span> <span class="cOut"><a href="checkout.html">Checkout</a></span></p>
+        <h3 class="login"><span class="hiUser">Hi, ${userInSessionList.get(0).getFirstname()}  ${userInSessionList.get(0).getLastname()}  |</span> <span class="myAccount"><a href="#">My Account</a></span> <a href="#">Logout</a></h3>
+        <p>Total: Rs. ${totalCost}</p>
+        <p><span class="vChart"><a href="/CakeShopPortal/Cart?cartAtrrib=view">View Cart</a></span> <span class="cOut"><a href="checkout.html">Checkout</a></span></p>
       </div>
     </div>
     <div id="mainMenu" class="grid_16">
@@ -50,54 +55,50 @@
     </div>
     <div class="checkout grid_16">
       <div class="billInfo grid_11 alpha">
-        <h4>1. Billing Information</h4>
-        <form method="post" action="#" id="comment_form">
+        <h4>Billing Information</h4>
+        <form method="post" action="Order" id="comment_form">
           <fieldset>
             <label for="firstName">First Name: </label>
-            <input type="text" tabindex="1" size="22" value="" id="firstName" name="firstName" class="text" />
+            <input type="text" tabindex="1" size="22" value="${userInSessionList.get(0).getFirstname()}" id="firstName" name="firstName" class="text" />
             <br />
             <label for="lastName">Last Name: </label>
-            <input type="text" tabindex="2" size="22" value="" id="lastName" name="lastName" class="text" />
-            <br />
-            <label for="company">Company:</label>
-            <input type="text" tabindex="3" size="50" value="optional" id="company" name="company" class="text" />
+            <input type="text" tabindex="2" size="22" value="${userInSessionList.get(0).getLastname()}" id="lastName" name="lastName" class="text" />
             <br />
             <label for="address">Address:</label>
             <input type="text" tabindex="4" size="50" value="" id="address" name="address" class="text" />
             <br />
-            <label for="address2">&nbsp;</label>
-            <input type="text" tabindex="5" size="50" value="" id="address2" name="address2" class="text" />
-            <br />
-            <label for="address3">&nbsp;</label>
-            <input type="text" tabindex="6" size="50" value="" id="address3" name="address3" class="text" />
-            <br />
             <label for="city">City:</label>
             <input type="text" tabindex="7" size="22" value="" id="city" name="city" class="text" />
             <br />
-            <label for="state">State/Province:</label>
-            <select id="state" tabindex="8">
-              <option>DKI Jakarta</option>
-              <option>Lembah Silikon</option>
-              <option>Gunung Kidul</option>
-            </select>
+            <label for="pin">Pin Code:</label>
+            <input type="text" tabindex="9" size="22" value="" id="pin" name="pin" class="text" />
             <br />
-            <label for="zip">Zip:</label>
-            <input type="text" tabindex="9" size="22" value="" id="zip" name="zip" class="text" />
-            <br />
-            <label for="country">country:</label>
-            <select id="country" tabindex="10">
-              <option>United Kingdom</option>
-              <option>German</option>
-              <option>Indonesia</option>
-            </select>
-            <br />
-            <label for="phone">Phone:</label>
+            <label for="phone">Contact No:</label>
             <input type="text" tabindex="11" size="22" value="" id="phone" name="phone" class="text" />
             <br />
+             <label class="delivery">Deliver on this specific date:</label>
+            <input id="start_dt" name="deliveryDate" class='datepicker' size='11' /> 
+            <br />
+            <label class="delivery">Deliver on this specific time:</label>
+            <select tabindex="4" name="deliveryTime">
+              <option value="Any Time"> Any Time</option>
+              <option value="Morning - 7.00 - 12.00 PM"> Morning - 7.00 - 12.00 PM</option>
+              <option value="Mid-day - 12.00 - 5.00 PM"> Mid-day - 12.00 - 5.00 PM</option>
+              <option value="Night - 5.00 - 9.00 PM"> Night - 5.00 - 9.00 PM</option>
+            </select>
+             <br />
+           	<label class="payment">Payment Option</label>
+            <select tabindex="4" name="paymentMethod">
+              <option value="Bank transfer"> Bank transfer</option>
+              <option value="Credit Card"> Credit Card</option>
+              <option value="Cash On Delivery"> Cash On Delivery</option>
+            </select>
             <div class="clear"></div>
+             <input type="hidden" value="${totalCost}" name="totalCost" />
           </fieldset>
-          <p><a href="checkout-2.html" id="nextSubmit" class="button">Next</a></p>
-          <input type="hidden" value="30" name="comment_post_ID" />
+          <p> <input type="submit" value="Place Order" id="checkout" name="checkout" class="button" />
+        </p>
+         
         </form>
       </div>
       <div class="summary grid_5 omega">
@@ -106,8 +107,8 @@
           <ul>
             <li><a href="#" class="down">Shopping Cart <span><img src="images/done.png" alt="" /></span></a>
               <ul>
-                <li class="info">3 items in your cart</li>
-                <li class="total">$ 000.00</li>
+                <li class="info">Cost of items in your cart</li>
+                <li class="total">Rs ${totalCost}</li>
                 <li class="clear"></li>
               </ul>
             </li>

@@ -58,7 +58,7 @@
 				<div class="stickyNews grid_12 alpha">
 					<p>
 						Valentine’s BrownieCheese Special Package. <em>Free
-							Delivery.</em> <a href="#" class="bookMan">More &raquo;</a>
+							Delivery.</em> <a href="#" class="bookMan">More</a>
 					</p>
 				</div>
 				<div class="search grid_4 omega">
@@ -76,41 +76,26 @@
 			</div>
 
 			<div class="bodyContent grid_16">
+				<c:forEach items="${productMap}" var="productCategory">
 				<div class="products grid_16 alpha">
 					<div class="prodMenu">
 						<h4>
-							Cupcakes <a href="#" class="viewAll">View All &raquo;</a>
+							${productCategory.key} <a href="#" class="viewAll">View All &raquo;</a>
 						</h4>
-						<c:forEach items="${cupcakes}" var="product">
+							
+							<c:forEach var="products" items="${productCategory.value}">
 							<div class="menu grid_4 alpha">
 								<p>
-									<a href="#" class="grid_4 alpha"><img
-										src="${product.filepath}" alt="" width="220" height="120" />
-									</a><br /> <a href="#"> <c:out value="${product.productName}" />
+									<a href="/CakeShopPortal/ProductServlet?id=${products.productId}" class="grid_4 alpha"><img
+										src="${products.filepath}" alt="" width="220" height="120" />
+									</a><br /> <a href="/CakeShopPortal/ProductServlet?id=${products.productId}"> <c:out value="${products.productName}" />
 									</a>
 								</p>
 							</div>
 						</c:forEach>
 					</div>
 				</div>
-				<div class="products grid_16 alpha">
-					<div class="prodMenu">
-						<h4>
-							Pastries <a href="#" class="viewAll">View All &raquo;</a>
-						</h4>
-						<c:forEach items="${pastries}" var="product">
-							<div class="menu grid_4 alpha">
-								<p>
-									<a href="#" class="grid_4 alpha"><img
-										src="${product.filepath}" alt="" width="220" height="120" />
-									</a><br /> <a href="#"> <c:out value="${product.productName}" />
-									</a>
-								</p>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-				
+				</c:forEach>
 				<div class="commentPages grid_16">
 					<ul>
 						<li><a href="#">&laquo; Prev</a>

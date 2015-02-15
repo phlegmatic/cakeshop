@@ -1,7 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>DapurKue | Product Details</title>
+
+<script>
+function continueShop(){
+	document.location.href="http://localhost:8080/CakeShopPortal/ProductServlet";
+}
+
+function removeElement(parentDiv, childDiv){
+//function to remove cart item    
+	if (childDiv == parentDiv) {
+         alert("The parent div cannot be removed.");
+    }
+    else if (document.getElementById(childDiv)) {     
+         var child = document.getElementById(childDiv);
+         var parent = document.getElementById(parentDiv);
+         parent.removeChild(child);
+    }
+    else {
+         alert("Child div has already been removed or does not exist.");
+         return false;
+    }
+    //pass id to be removed to servlet
+	document.location.href="http://localhost:8080/CakeShopPortal/Cart?cartAtrrib=remove&prodId="+childDiv;
+}
+
+</script>
+
+<title>DapurKue | ShoppingCart</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" media="all" href="styles/960.css" />
 <link rel="stylesheet" type="text/css" media="all" href="styles/reset.css" />
@@ -25,7 +54,7 @@
     </div>
     <div id="mainMenu" class="grid_16">
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" class="aActive">Home</a></li>
         <li><a href="#">Cakes</a></li>
         <li><a href="#">Order &amp; Delivery</a></li>
         <li><a href="#">Blog</a></li>
@@ -44,59 +73,59 @@
       </div>
     </div>
     <div class="prodNav grid_16">
-      <div class="breadcrumb grid_12 alpha"> <a href="#">Cakes</a> &raquo; <a href="#">Brownies</a> &raquo; Brownimissu</div>
-      <div class="browseCategory grid_4 omega">
-        <form action="#" method="get">
-          <select>
-            <option>All Category</option>
-            <option>Brownimissu</option>
-            <option>Kue Tete</option>
-            <option>Bagelan</option>
-          </select>
-        </form>
+      <div class="prodHeadline grid_16">
+        <h3>Your Shopping Cart</h3>
       </div>
     </div>
     <div class="bodyContent grid_16">
-      <div class="blogPage grid_11 alpha">
-        <div class="post">
-          <p><img src="images/cakeblog.jpg" alt="" /></p>
-          <h2>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. vivamus tempor justo sit amet metus cursus consequat. Nulla viverra, felis vel accumsan fermentum, nisl enim aliquam risus, id convallis mauris turpis iaculis felis. Etiam sollucitudin augue et turpis. Vivamus rutrum metus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. vivamus tempor justo sit amet metus cursus consequat. Nulla viverra, felis vel accumsan fermentum, nisl enim aliquam risus, id convallis mauris turpis iaculis felis. Etiam sollucitudin augue et turpis. Vivamus rutrum metus.</p>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. vivamus tempor justo sit amet metus cursus consequat. Nulla viverra, felis vel accumsan fermentum, nisl enim aliquam risus, id convallis mauris turpis iaculis felis. Etiam sollucitudin augue et turpis. Vivamus rutrum metus.</p>
+      <div class="shopCart grid_16 alpha">
+        <div class="headCart grid_16 alpha">
+          <div class="itemHead grid_9 alpha"> Item Description</div>
+          <div class="priceHead grid_2"> Price</div>
+          <div class="qtyHead grid_1"> Qty</div>
+          <div class="subtotalHead grid_2"> Subtotal</div>
+          <div class="remHead grid_2 omega"> Remove</div>
         </div>
-      </div>
-      <div class="sideBarProd grid_5 omega">
-        <div class="sideBarWarp">
-          <h3>Brownimissu</h3>
-          <h4>$ 000.00</h4>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. vivamus tempor justo sitouiet amet metus cursus consequat. Nullaiverra, felis vel accumsan fermentum, nisl enimuh.</p>
-          <form action="#" method="get">
-            <p>
-              <label for="qty">Select Qty: </label>
-              <select tabindex="1">
-                <option>half dozen</option>
-                <option>1 dozen</option>
-              </select>
-            </p>
-            <p>
-              <input type="submit" value="Add to Cart" tabindex="2" name="submit" class="addCart button" />
-              <input type="hidden" value="30" name="comment_post_ID" />
-            </p>
-          </form>
-          <ul>
-            <li><a href="#"><img src="images/flickr1.jpg" alt="" /></a></li>
-            <li><a href="#"><img src="images/flickr2.jpg" alt="" /></a></li>
-            <li><a href="#"><img src="images/flickr3.jpg" alt="" /></a></li>
-            <li><a href="#"><img src="images/flickr4.jpg" alt="" /></a></li>
-          </ul>
-          <div class="clear"></div>
-        </div>
-        <div class="fiveStar">
-          <h4>Our Quality Guarantee</h4>
-          <p><img src="images/star.png" alt="" /> <img src="images/star.png" alt="" /> <img src="images/star.png" alt="" /> <img src="images/star.png" alt="" /> <img src="images/star.png" alt="" /></p>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. vivamus tempor justo sit amet metus cursus consequat. Nulla viverra.</p>
-        </div>
-        <p><a href="#" class="viewOrder">View Order &amp; delivery details &raquo;</a></p>
+        <form action="Cart" method="get">
+          <div id="parentDivElement" class="bodyCart grid_16 alpha">
+           <c:set var="sum" value="${0}"/> 
+            <c:forEach items="${cart.getItems()}" var="item">
+            <div id="${item.prodId}" class="warpCart">
+              <div class="item grid_9 alpha">
+                <p><!-- <a href="#"><img src="images/flickr1.jpg" alt="" /></a> --> ${item.prodName}<br />
+                 </p>
+              </div>
+              <div class="price grid_2">
+                <p>Rs. ${item.prodSellingPrice}</p>
+              </div>
+              <div class="qty grid_1">
+                <%-- <input type="text" size="1" value="${item.qtyOrdered}" name="Qty" /> --%>
+              	<input type="hidden" size="1" value="${item.qtyOrdered}" name="Qty" />
+              	<p> ${item.qtyOrdered}</p>
+              </div>
+              <div class="subtotal grid_2">
+                <p>Rs. ${item.prodSellingPrice*item.qtyOrdered}</p>
+              </div>
+              <div class="remove grid_2 omega">
+                <input type="checkbox" value="${item.prodId}" onclick="removeElement('parentDivElement', this.value);" />
+              </div>
+            </div>
+            <c:set var="sum" value="${sum + item.prodSellingPrice*item.qtyOrdered}"/>
+            </c:forEach>
+          </div> 
+          <div class="footCart grid_16 alpha">
+            <div class="grandTotal grid_3 prefix_11 alpha"> Grand Total</div>
+            <div class="totalPrice grid_2 omega"> ${sum}</div>
+          </div>
+          <div class="buttonCart grid_16 alpha">
+            <input type="button" value="Continue Shopping" name="Continue Shopping" class="continueShop" onclick = "continueShop();" />
+            
+            <input type="hidden" value="${sum}" name="totalCost" />
+            <input type="submit" value="checkout" name="cartAtrrib" class="checkoutCart" />
+            <!-- <input type="button" value="Update Cart" name="Update Cart" class="updateCart" />
+             --><div class="clear"></div>
+          </div>
+        </form>
       </div>
       <div id="chooseCake" class="grid_16">
         <div class="youLike grid_16">
@@ -104,10 +133,10 @@
         </div>
       </div>
       <div class="newCakes">
-        <div class="newCake"><a href="#" class="grid_4"><img src="images/freshCake1.jpg" alt="" width="220" height="120" /></a></div>
-        <div class="newCake"><a href="#" class="grid_4"><img src="images/freshCake2.jpg" alt="" width="220" height="120" /></a></div>
-        <div class="newCake"><a href="#" class="grid_4"><img src="images/freshCake3.jpg" alt="" width="220" height="120" /></a></div>
-        <div class="newCake"><a href="#" class="grid_4"><img src="images/freshCake4.jpg" alt="" width="220" height="120" /></a></div>
+        <div class="newCake"><a href="product-details.html" class="grid_4"><img src="images/freshCake1.jpg" alt="" width="220" height="120" /></a></div>
+        <div class="newCake"><a href="product-details.html" class="grid_4"><img src="images/freshCake2.jpg" alt="" width="220" height="120" /></a></div>
+        <div class="newCake"><a href="product-details.html" class="grid_4"><img src="images/freshCake3.jpg" alt="" width="220" height="120" /></a></div>
+        <div class="newCake"><a href="product-details.html" class="grid_4"><img src="images/freshCake4.jpg" alt="" width="220" height="120" /></a></div>
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -98,7 +99,7 @@ public class Order {
 		this.orderProducts = orderProducts;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "pk.orders")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "pk.orders",cascade=CascadeType.ALL)
 	public Set<OrderProductDetails> getOrderProducts() {
 		return orderProducts;
 	}

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" action="Servlet"/>
+<form method="post" action="Servlet">
 USERNAME:<input type="text" name="username"/><br></br>
 PASSWORD:<input type="password" name="password"/><br></br>
 CATEGORY:<select name="category" >
