@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,7 +21,7 @@
         <h2>Famously Delicious</h2>
       </div>
       <div id="headright" class="grid_7 prefix_5 omega">
-        <h3 class="login"><span class="hiUser">Hi, Monika Halim |</span> <span class="myAccount"><a href="#">My Account</a></span> <a href="#">Logout</a></h3>
+        <h3 class="login"><span class="hiUser">Hi, ${userInSessionList.get(0).getFirstname()}  ${userInSessionList.get(0).getLastname()} |</span> <a href="#">Logout</a></h3>
         <p>Subtotal: $ 00.00</p>
         <p><span class="vChart"><a href="shoppingcart.html">View Cart</a></span> <span class="cOut"><a href="checkout.html">Checkout</a></span></p>
       </div>
@@ -45,25 +48,43 @@
     </div>
     <div class="checkout grid_16">
       <div class="newAccount grid_8 alpha">
-        <h4>Create New Account</h4>
+        <h4>Order Receipt</h4>
         <form method="post" action="Servlet">
           <fieldset>
-            <label for="firstName">First Name: </label>
-            <input type="text" tabindex="1" size="22" value="" id="firstName" name="firstName" class="text" />
+          
+            <label for="firstName">Receipt No. </label>
+            ${receipt.getOrderId()} 
             <br />
-            <label for="lastName">Last Name: </label>
-            <input type="text" tabindex="2" size="22" value="" id="lastName" name="lastName" class="text" />
+            <label for="lastName">Date </label>
+            ${receipt.getOrderDate()}
             <br />
-            <label for="email">Email:</label>
-            <input type="text" tabindex="3" size="50" value="" id="email" name="email" class="text" />
+            <label for="email">Customer Name</label>
+            ${receipt.getUser().getFirstname()} ${receipt.getUser().getLastname()}
             <br />
-            <label for="password">Password:</label>
-            <input type="password" tabindex="4" size="22" value="" id="password" name="password" class="text" />
+            <label for="password">Ordered Items</label>
+            <c:forEach items="${receipt.getOrderProducts()}" var="orderedProducts">
+            	${orderedProducts.getProducts().getProductName()}
+				${orderedProducts.getQuantity()}
+				${orderedProducts.getProducts().getSellingPrice()}
+            </c:forEach>
             <br />
-            <label for="repassword">Retype Password:</label>
-            <input type="password" tabindex="5" size="22" value="" id="repassword" name="repassword" class="text" />
-             <input type="hidden" name="hiddenVar" value="createUserlogic" />
+            <label for="repassword">Total Cost</label>
+            ${receipt.getAmount()}
+           	<br />
+           	<label for="repassword">Payment Mode</label>
+            ${receipt.getPaymentMode()}
+           	<br />
+            
+            <label for="repassword">Delivery Information</label>
+            On ${receipt.getDeliveryDate()}  ${receipt.getDeliveryTime()} 
             <br />
+            <br />
+            <label for="repassword">Delivery Address</label>
+            On ${receipt.getAddress().getAddress()} 
+            <br />
+            
+            
+            
             <div class="clear"></div>
           </fieldset>
           <p>
@@ -73,25 +94,7 @@
           
         </form>
       </div>
-      <div class="loginPage grid_8 omega">
-        <h4>Login</h4>
-        <form method="post" action="Servlet">
-          <fieldset>
-            <label for="email2">Email:</label>
-            <input type="text" tabindex="1" size="50" value="" id="email2" name="email" class="text" />
-            <br />
-            <label for="password2">Password:</label>
-            <input type="password" tabindex="2" size="22" value="" id="password2" name="password" class="text" />
-            <br />
-            <div class="clear"></div>
-          </fieldset>
-          <p>
-            <input type="submit" value="Login" tabindex="3" name="update" class="userLogin" />
-            <input type="hidden" name="hiddenVar" value="loginlogic" />
-          </p>
-         </form>
-      </div>
-    </div>
+         </div>
   </div>
   <div class="clear"></div>
 </div>

@@ -30,23 +30,23 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="#">Cakes</a></li>
         <li><a href="#">Order &amp; Delivery</a></li>
-        <li><a href="#">Blog</a></li>
+      <!--   <li><a href="#">Blog</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
-      </ul>
+    -->   </ul>
     </div>
     <div id="stickySearch" class="grid_16">
-      <div class="stickyNews grid_12 alpha">
+      <!-- <div class="stickyNews grid_12 alpha">
         <p>Valentine’s BrownieCheese Special Package. <em>Free Delivery.</em> <a href="#" class="bookMan">More &raquo;</a></p>
       </div>
       <div class="search grid_4 omega">
         <form action="#" method="get">
           <input type="text" value="Type your keyword" id="s" name="s" onfocus="if (this.value == 'Type your keyword') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Type your keyword';}" />
         </form>
-      </div>
+      </div> -->
     </div>
     <div class="prodNav grid_16">
-      <div class="breadcrumb grid_12 alpha"> <a href="#">Cakes</a> &raquo; <a href="#">${product.productCategory}</a> &raquo; ${product.productName}</div>
+      <div class="breadcrumb grid_12 alpha"> <a href="cakes">Cakes</a> &raquo; <a href="#">${product.productCategory}</a> &raquo; ${product.productName}</div>
       <div class="browseCategory grid_4 omega">
       </div>
     </div>

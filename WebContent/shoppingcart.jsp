@@ -7,7 +7,7 @@
 
 <script>
 function continueShop(){
-	document.location.href="http://localhost:8080/CakeShopPortal/ProductServlet";
+	document.location.href="http://localhost:8080/CakeShopPortal/cakes";
 }
 
 function removeElement(parentDiv, childDiv){
@@ -47,9 +47,8 @@ function removeElement(parentDiv, childDiv){
         <h2>Famously Delicious</h2>
       </div>
       <div id="headright" class="grid_7 prefix_5 omega">
-        <h3 class="login"><a href="login.html">Sign up</a> / <a href="login.html">Login</a></h3>
-        <p>Subtotal: $ 00.00</p>
-        <p><span class="vChart"><a href="shoppingcart.html">View Cart</a></span> <span class="cOut"><a href="checkout.html">Checkout</a></span></p>
+        <h3 class="login"><a href="login.jsp">Sign up</a> / <a href="login.jsp">Login</a></h3>
+        <p><span class="vChart"><a href="/CakeShopPortal/Cart">View Cart</a></span></p>
       </div>
     </div>
     <div id="mainMenu" class="grid_16">
@@ -57,13 +56,13 @@ function removeElement(parentDiv, childDiv){
         <li><a href="index.html" class="aActive">Home</a></li>
         <li><a href="#">Cakes</a></li>
         <li><a href="#">Order &amp; Delivery</a></li>
-        <li><a href="#">Blog</a></li>
+        <!-- <li><a href="#">Blog</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
-      </ul>
+       --></ul>
     </div>
     <div id="stickySearch" class="grid_16">
-      <div class="stickyNews grid_12 alpha">
+      <!-- <div class="stickyNews grid_12 alpha">
         <p>Valentine’s BrownieCheese Special Package. <em>Free Delivery.</em> <a href="#" class="bookMan">More &raquo;</a></p>
       </div>
       <div class="search grid_4 omega">
@@ -71,7 +70,7 @@ function removeElement(parentDiv, childDiv){
           <input type="text" value="Type your keyword" id="s" name="s" onfocus="if (this.value == 'Type your keyword') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Type your keyword';}" />
         </form>
       </div>
-    </div>
+ -->    </div>
     <div class="prodNav grid_16">
       <div class="prodHeadline grid_16">
         <h3>Your Shopping Cart</h3>
@@ -180,7 +179,7 @@ function removeElement(parentDiv, childDiv){
     <div class="clear"></div>
   </div>
 </div>
-<div id="richContent2">
+<!-- <div id="richContent2">
   <div class="container_16">
     <div class="fromBlog grid_4">
       <h4>From the blog</h4>
@@ -218,7 +217,7 @@ function removeElement(parentDiv, childDiv){
     <div class="clear"></div>
   </div>
 </div>
-<div id="footer">
+ --><div id="footer">
   <div class="container_16">
     <div class="copyright grid_16">
       <p class="left">Copyright &copy; 2010, Your Company Here, All Rights Reserved</p>

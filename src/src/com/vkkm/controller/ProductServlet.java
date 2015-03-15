@@ -17,7 +17,7 @@ import src.com.vkkm.bean.ProductInfo;
 /**
  * Servlet implementation class ProductServlet
  */
-@WebServlet({ "/ProductServlet", "/productOverview.*" })
+@WebServlet({ "/cakes", "/productOverview.*" })
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

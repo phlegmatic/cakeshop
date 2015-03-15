@@ -19,6 +19,7 @@ import org.hibernate.criterion.Restrictions;
 
 
 import src.com.vkkm.bean.Address;
+import src.com.vkkm.bean.CartItems;
 import src.com.vkkm.bean.Order;
 import src.com.vkkm.bean.OrderProductDetails;
 import src.com.vkkm.bean.ProductInfo;
@@ -99,7 +100,7 @@ public class Dao{
 		session.beginTransaction();
 		
 		
-		session.save(p);
+		session.saveOrUpdate(p);
 		
 		session.getTransaction().commit();
         session.close();
@@ -162,7 +163,28 @@ public class Dao{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/*public Order updateQuantityOnOrder(ProductInfo products,CartItems item) {
+		SessionFactory factory=HibernateFactory.getSessionFactory();
+		session =factory.openSession();
+		session.beginTransaction();
+		
+		
+		ProdInfo employee = (Employee)session.get(Employee.class, EmployeeID); 
+ employee.setSalary( salary );
+ session.update(employee); 
+		
+		session.getTransaction().commit();
+		
+		Order receipt;
+		receipt =  (Order) session.get(Order.class, order.getOrderId());
+		
+        session.close();
+		return receipt;
+		// TODO Auto-generated method stub
+		
+	}
+*/
 	
     
 }   

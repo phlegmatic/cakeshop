@@ -23,9 +23,9 @@
         <h2>Famously Delicious</h2>
       </div>
       <div id="headright" class="grid_7 prefix_5 omega">
-        <h3 class="login"><span class="hiUser">Hi, ${userInSessionList.get(0).getFirstname()}  ${userInSessionList.get(0).getLastname()}  |</span> <span class="myAccount"><a href="#">My Account</a></span> <a href="#">Logout</a></h3>
+        <h3 class="login"><span class="hiUser">Hi, ${userInSessionList.get(0).getFirstname()}  ${userInSessionList.get(0).getLastname()}  |</span><a href="/CakeShopPortal/Cart">Logout</a></h3>
         <p>Total: Rs. ${totalCost}</p>
-        <p><span class="vChart"><a href="/CakeShopPortal/Cart?cartAtrrib=view">View Cart</a></span> <span class="cOut"><a href="checkout.html">Checkout</a></span></p>
+        <p><span class="vChart"><a href="/CakeShopPortal/Cart?cartAtrrib=view">View Cart</a></span></p>
       </div>
     </div>
     <div id="mainMenu" class="grid_16">

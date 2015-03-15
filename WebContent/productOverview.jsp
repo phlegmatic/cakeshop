@@ -40,22 +40,22 @@
 			</div>
 			<div id="mainMenu" class="grid_16">
 				<ul>
-					<li><a href="index.html">Home</a>
+					<li><a href="index.jsp">Home</a>
 					</li>
 					<li><a href="#">Cakes</a>
 					</li>
 					<li><a href="#">Order &amp; Delivery</a>
 					</li>
-					<li><a href="#">Blog</a>
+				<!-- 	<li><a href="#">Blog</a>
 					</li>
 					<li><a href="#">About</a>
 					</li>
 					<li><a href="#">Contact</a>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 			<div id="stickySearch" class="grid_16">
-				<div class="stickyNews grid_12 alpha">
+				<!-- <div class="stickyNews grid_12 alpha">
 					<p>
 						Valentine’s BrownieCheese Special Package. <em>Free
 							Delivery.</em> <a href="#" class="bookMan">More</a>
@@ -67,7 +67,7 @@
 							onfocus="if (this.value == 'Type your keyword') {this.value = '';}"
 							onblur="if (this.value == '') {this.value = 'Type your keyword';}" />
 					</form>
-				</div>
+				</div> -->
 			</div>
 			<div class="prodNav grid_16">
 				<div class="prodHeadline grid_12 alpha">
@@ -86,9 +86,9 @@
 							<c:forEach var="products" items="${productCategory.value}">
 							<div class="menu grid_4 alpha">
 								<p>
-									<a href="/CakeShopPortal/ProductServlet?id=${products.productId}" class="grid_4 alpha"><img
+									<a href="/CakeShopPortal/cakes?id=${products.productId}" class="grid_4 alpha"><img
 										src="${products.filepath}" alt="" width="220" height="120" />
-									</a><br /> <a href="/CakeShopPortal/ProductServlet?id=${products.productId}"> <c:out value="${products.productName}" />
+									</a><br /> <a href="/CakeShopPortal/cakes?id=${products.productId}"> <c:out value="${products.productName}" />
 									</a>
 								</p>
 							</div>
@@ -96,7 +96,7 @@
 					</div>
 				</div>
 				</c:forEach>
-				<div class="commentPages grid_16">
+			<!-- 	<div class="commentPages grid_16">
 					<ul>
 						<li><a href="#">&laquo; Prev</a>
 						</li>
@@ -111,7 +111,7 @@
 						<li><a href="#">Next &raquo;</a>
 						</li>
 					</ul>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div class="clear"></div>
