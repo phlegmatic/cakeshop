@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import src.com.vkkm.bean.ProductInfo;
-
+/*Test class to try out stuff*/
 public class test {
 
 	/**
@@ -22,34 +21,34 @@ public class test {
 		//System.out.println(s.replace(s.substring(s.indexOf(".")-1, s.indexOf("webapps")+7),""));
 		System.out.println(s.replace(s.indexOf("."), s.indexOf("webapps")+8,""));
 		System.out.println(s.replace(s.indexOf("$images"),s.indexOf("$images")+8, "$WebContent$images"));*/
-		
+
 		List<String> str = new ArrayList<String>();
-		
+
 		str.add("4");
 		str.add("6");
 		str.add("8");
-		
 
-		
+
+
 		str.add("1");
 		str.add("2");
 		str.add("3");
-		
+
 		Map<String, List <String>> productMap = new HashMap<String, List<String>>();
-		
+
 		productMap.put("pastry",str );
 		//productMap.put("cake",str2 );
-			
-		
+
+
 		for (String a: productMap.keySet()){
-		System.out.print(a);
+			System.out.print(a);
 			for(String val:str){
 				System.out.println(val);//System.out.println(productMap.get(a).get(index));
 			}
 		}
-		
-		
-		
+
+
+
 	}
 
 }

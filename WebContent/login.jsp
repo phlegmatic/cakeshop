@@ -76,7 +76,7 @@
       </div>
       <div class="loginPage grid_8 omega">
         <h4>Login</h4>
-        <form method="post" action="Servlet">
+        <form method="post" action="LoginPageController">
           <fieldset>
             <label for="email2">Email:</label>
             <input type="text" tabindex="1" size="50" value="" id="email2" name="email" class="text" />

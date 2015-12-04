@@ -3,8 +3,8 @@ package src.com.vkkm.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import src.com.vkkm.bean.CartItems;
-import src.com.vkkm.bean.ProductInfo;
 import src.com.vkkm.bean.User;
 
 public class Cart {
@@ -32,30 +32,22 @@ public class Cart {
 		cart.add(new CartItems(id,prodName, prodPrice, cust, qtyOrdered));
 	}
 
-	// Update the quantity for the given id
-	public boolean update(int id, int newQty) {
-		Iterator<CartItems> iter = cart.iterator();
-		while (iter.hasNext()) {
-			CartItems item = iter.next();
-			if (item.getProdId() == id) {
-				// id found, increase qtyOrdered
-				item.setQtyOrdered(newQty);
-				return true;
-			}
-		}
-		return false;
+	// Remove all the items in this Cart
+	public void clear() {
+		cart.clear();
 	}
 
-	//checkout cart with final qty present in cart
-	/*public void checkout(int newQty) {
-		Iterator<CartItems> iter = cart.iterator();
-		while (iter.hasNext()) {
-			CartItems item = iter.next();
-			item.setQtyOrdered(newQty);
-
-		}
+	// Return all the CartItems in a List<CartItem>
+	public List<CartItems> getItems() {
+		return cart;
 	}
-*/	// Remove a CartItem given its id
+
+	// Check if this Cart is empty
+	public boolean isEmpty() {
+		return size() == 0;
+	}
+
+	// Remove a CartItem given its id
 	public void remove(int id) {
 		Iterator<CartItems> iter = cart.iterator();
 		while (iter.hasNext()) {
@@ -72,22 +64,19 @@ public class Cart {
 		return cart.size();
 	}
 
-	// Check if this Cart is empty
-	public boolean isEmpty() {
-		return size() == 0;
+	// Update the quantity for the given id
+	public boolean update(int id, int newQty) {
+		Iterator<CartItems> iter = cart.iterator();
+		while (iter.hasNext()) {
+			CartItems item = iter.next();
+			if (item.getProdId() == id) {
+				// id found, increase qtyOrdered
+				item.setQtyOrdered(newQty);
+				return true;
+			}
+		}
+		return false;
 	}
-
-	// Return all the CartItems in a List<CartItem>
-	public List<CartItems> getItems() {
-		return cart;
-	}
-
-	// Remove all the items in this Cart
-	public void clear() {
-		cart.clear();
-	}
-
-
 }
 
 

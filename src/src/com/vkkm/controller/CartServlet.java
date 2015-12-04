@@ -1,7 +1,6 @@
 package src.com.vkkm.controller;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,9 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import src.com.vkkm.bean.CartItems;
-import src.com.vkkm.bean.ProductInfo;
 import src.com.vkkm.bean.User;
+import src.com.vkkm.dao.Dao;
 
 /**
  * Servlet implementation class CartServlet
@@ -33,9 +31,10 @@ public class CartServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Dao d= new Dao();
+		new Dao();
 
 		HttpSession session = request.getSession(true);
 		Cart cart;
@@ -64,7 +63,10 @@ public class CartServlet extends HttpServlet {
 		//String todo = request.getParameter("todo");
 		String todo = request.getParameter("cartAtrrib");
 
-		if (todo == null) todo = "view";  // to prevent null pointer
+		if (todo == null)
+		 {
+			todo = "view";  // to prevent null pointer
+		}
 		if (todo.equals("add") ) {
 			// (1) todo=add id=1001 qty1001=5 [id=1002 qty1002=1 ...]
 			// (2) todo=update id=1001 qty1001=5   	 
@@ -73,9 +75,7 @@ public class CartServlet extends HttpServlet {
 			int prodPrice = Integer.parseInt(request.getParameter("productPrice"));
 			int qtyOrdered = Integer.parseInt(request.getParameter("selQuantity"));
 			//int idInt = Integer.parseInt(id);
-
 			cart.add(prodId,prodName,prodPrice, u, qtyOrdered);
-
 			request.getRequestDispatcher("shoppingcart.jsp").forward(request, response);   
 
 		} 
@@ -103,10 +103,10 @@ public class CartServlet extends HttpServlet {
 
 	}
 
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}

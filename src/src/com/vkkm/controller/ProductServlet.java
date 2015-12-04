@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import src.com.vkkm.bean.ProductInfo;
+import src.com.vkkm.dao.Dao;
 
 /**
  * Servlet implementation class ProductServlet
